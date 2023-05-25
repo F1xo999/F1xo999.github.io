@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Môj webový projekt - Kontakt</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="kontaktc.css">
+    <button id="myButton">Click Me</button>
+        <script src="button.js"></script>
+    <style>
+        .column-left {
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 class="logo">Môj webový projekt</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Domov</a></li>
+                <li><a href="kontakt.html" class="active">Kontakt</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h2>Kontaktujte nás</h2>
+        <form id="contact-form" action="#" method="POST">
+        <div class="container">
+            <div class="columns">
+            <div class="column">
+                <input type="text" id="name" name="name" placeholder="Your Name">
+                </div>
+                <div class="column">
+                <input type="email" id="email" name="email" placeholder="Your Email">
+                </div>
+                <div class="column">
+                <textarea id="message" name="message" placeholder="Your Message"></textarea>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" id="submit-btn">Submit</button>
+        </form>
+            <div id="notification"></div>          
+      </main>      
+    <footer>
+        <p>&copy; 2023 Môj webový projekt. Všetky práva vyhradené.</p>
+    </footer>
+    <script>
+        const contactForm = document.getElementById('contact-form');
+        const notification = document.getElementById('notification');
+
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent form submission
+
+            // Code to handle form submission (saving data, sending requests, etc.)
+
+            // Show the "Message sent" notification
+            notification.textContent = 'Message sent';
+            notification.style.display = 'block';
+
+            // Hide the notification after 2 seconds
+            setTimeout(function() {
+                notification.style.display = 'none';
+            }, 2000);
+        });
+    </script>  
+</body>
+</html>
+
