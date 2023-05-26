@@ -22,10 +22,10 @@ jobs:
         run: npm install
 
       - name: Capture form data
-        id: form-data
+        id: capture-form-data
         run: |
-          # Replace this command with the actual command to capture the form data
-          echo "::set-output name=data::Form data value"
+          # Replace with your logic to capture form data and set it as an environment variable
+          echo "FORM_DATA=$(your-command-to-capture-form-data)" >> $GITHUB_ENV
 
       - name: Send email
         env:
@@ -40,14 +40,14 @@ jobs:
           sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
           # Get form data from the previous step
-          const formData = ${{ steps.form-data.outputs.data }};
+          const formData = process.env.FORM_DATA;
 
-          # Construct the email message
+          # Construct the email message using the form data
           const message = {
-            to: process.env.TO_EMAIL,
-            from: process.env.FROM_EMAIL,
+            to: 'spyfilip@gmail.com',  // Replace with your email address
+            from: 'kontaktstranka@gmail.com',   // Replace with the sender email address
             subject: 'Form Submission',
-            text: `A form submission was received:\n\n${formData}`,
+            text: `A form submission was received:\n\n${formData}`
           };
 
           # Send the email
@@ -58,5 +58,6 @@ jobs:
             .catch((error) => {
               console.error('Error sending email:', error);
             });
+
 
 
