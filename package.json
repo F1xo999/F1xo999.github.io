@@ -21,7 +21,7 @@
   "bugs": {
     "url": "https://github.com/F1xo999/f1xo999.github.io/issues"
   },
-  "homepage": "https://github.com/F1xo999/f1xo999.github.io#readme"
+  "homepage": "https://github.com/F1xo999/f1xo999.github.io#readme",
   "dependencies": {
     "@sendgrid/mail": "^7.4.6"
   }
