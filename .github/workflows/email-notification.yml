@@ -27,16 +27,12 @@ jobs:
           FROM_EMAIL: ${{ secrets.FROM_EMAIL }}
           SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
         run: |
-          # Import the required libraries
           const sgMail = require('@sendgrid/mail');
 
-          # Set up the SendGrid API key
           sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-
-          # Get form data from the previous step (assuming it's stored in output "data" of step "form-data")
+          
           const formData = ${{ steps.form-data.outputs.data }};
 
-          # Construct the email message
           const message = {
             to: process.env.TO_EMAIL,
             from: process.env.FROM_EMAIL,
@@ -44,8 +40,7 @@ jobs:
             text: `A form submission was received:\n\n${formData}`,
           };
 
-          # Send the email
-          sgMail.send(message)
+         sgMail.send(message)
             .then(() => {
               console.log('Email sent successfully');
             })
