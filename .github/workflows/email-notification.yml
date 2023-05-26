@@ -32,13 +32,14 @@ jobs:
       - name: Capture form data
         id: capture-form-data
         run: |
-          # Use PowerShell to extract form data from environment variables
-          $formData = @{
-            name = $env:INPUT_NAME
-            email = $env:INPUT_EMAIL
-            message = $env:INPUT_MESSAGE
-          } | ConvertTo-Json
-          echo "FORM_DATA=$formData" >> $env:GITHUB_ENV
+         # Use PowerShell to extract form data from environment variables
+         $formData = @{
+          "name" = $env:INPUT_NAME
+         "email" = $env:INPUT_EMAIL
+         "message" = $env:INPUT_MESSAGE
+         } | ConvertTo-Json
+         echo "FORM_DATA=$formData" >> $env:GITHUB_ENV
+
 
       - name: Send email
         env:
