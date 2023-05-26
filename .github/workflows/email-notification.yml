@@ -16,14 +16,14 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '14'
+          node-version: '16'
 
       - name: Install dependencies
         run: npm install
 
       - name: Install PowerShell
         run: |
-          # Install PowerShell 
+          # Install PowerShell
           sudo apt-get update
           sudo apt-get install -y powershell
           pwsh --version  # Verify the installation
@@ -35,9 +35,9 @@ jobs:
 
       - name: Send email
         env:
-         TO_EMAIL: ${{ secrets.TO_EMAIL }}
-         FROM_EMAIL: ${{ secrets.FROM_EMAIL }}
-         SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+          TO_EMAIL: ${{ secrets.TO_EMAIL }}
+          FROM_EMAIL: ${{ secrets.FROM_EMAIL }}
+          SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
         run: |
           const sgMail = require('@sendgrid/mail');
 
@@ -46,19 +46,20 @@ jobs:
           const formData = JSON.parse(process.env.CAPTURE_FORM_DATA);
 
           const message = {
-           to: 'spyfilip@gmail.com',  // Replace with your email address
-           from: 'kontaktstranka@gmail.com',   // Replace with the sender email address
-           subject: 'Form Submission',
-           text: `A form submission was received:\n\nName: ${formData.name}\nEmail: ${formData.email}\nMessage: ${formData.message}`
+            to: 'spyfilip@gmail.com',  // Replace with your email address
+            from: 'kontaktstranka@gmail.com',   // Replace with the sender email address
+            subject: 'Form Submission',
+            text: `A form submission was received:\n\nName: ${formData.name}\nEmail: ${formData.email}\nMessage: ${formData.message}`
           };
 
           sgMail.send(message)
-          .then(() => {
-           console.log('Email sent successfully');
-          })
-          .catch((error) => {
-            console.error('Error sending email:', error);
-          });
+            .then(() => {
+              console.log('Email sent successfully');
+            })
+            .catch((error) => {
+              console.error('Error sending email:', error);
+            });
+
 
 
 
