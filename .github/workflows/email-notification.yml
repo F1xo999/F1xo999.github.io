@@ -20,6 +20,14 @@ jobs:
 
       - name: Install dependencies
         run: npm install
+        
+      - name: Install jq
+        run: |
+         # Download jq binary
+          wget https://github.com/stedolan/jq/releases/download/jq-1.6/jq-win64.exe -O jq.exe
+         # Move jq binary to a directory in the PATH
+           move jq.exe /usr/local/bin/
+
 
       - name: Capture form data
         id: capture-form-data
