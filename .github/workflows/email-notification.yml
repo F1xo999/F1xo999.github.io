@@ -28,7 +28,7 @@ jobs:
           sudo apt-get install -y powershell
           pwsh --version  # Verify the installation
 
-      - name: Capture form data
+      - name: Capture form data 
         id: capture-form-data
         run: |
           echo "CAPTURE_FORM_DATA=$(echo '{\"name\": \"${{ env.INPUT_NAME }}\", \"email\": \"${{ env.INPUT_EMAIL }}\", \"message\": \"${{ env.INPUT_MESSAGE }}\"}')" >> $GITHUB_ENV
