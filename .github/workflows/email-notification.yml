@@ -32,7 +32,7 @@ jobs:
       - name: Capture form data
         id: capture-form-data
         run: |
-         echo "::set-output name=data::$(echo '{\"name\": \"'${{ env.INPUT_NAME }}'\", \"email\": \"'${{ env.INPUT_EMAIL }}'\", \"message\": \"'${{ env.INPUT_MESSAGE }}'\"}')"
+         echo "::set-output name=CAPTURE_FORM_DATA::$(echo '{\"name\": \"'${{ env.INPUT_NAME }}'\", \"email\": \"'${{ env.INPUT_EMAIL }}'\", \"message\": \"'${{ env.INPUT_MESSAGE }}'\"}')"
 
 
 
