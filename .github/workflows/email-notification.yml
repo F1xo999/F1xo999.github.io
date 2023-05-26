@@ -23,27 +23,26 @@ jobs:
         
       - name: Install PowerShell
         run: |
-         # No need to install PowerShell on Windows as it's already available
+          # No need to install PowerShell on Windows as it's already available
           echo "PowerShell installed"
-
 
       - name: Capture form data
         id: capture-form-data
         run: |
-         # Use PowerShell to extract form data from environment variables
+          # Use PowerShell to extract form data from environment variables
           $formData = @{
-          name = $env:INPUT_NAME
-          email = $env:INPUT_EMAIL
-          message = $env:INPUT_MESSAGE
+            name = $env:INPUT_NAME
+            email = $env:INPUT_EMAIL
+            message = $env:INPUT_MESSAGE
           } | ConvertTo-Json
           echo "FORM_DATA=$formData" >> $env:GITHUB_ENV
 
       - name: Send email
-         env:
-            TO_EMAIL: ${{ secrets.TO_EMAIL }}
-            FROM_EMAIL: ${{ secrets.FROM_EMAIL }}
-            SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
-         run: |
+        env:
+          TO_EMAIL: ${{ secrets.TO_EMAIL }}
+          FROM_EMAIL: ${{ secrets.FROM_EMAIL }}
+          SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+        run: |
           # Import the required libraries
           const sgMail = require('@sendgrid/mail');
 
@@ -54,21 +53,21 @@ jobs:
           const formData = process.env.FORM_DATA;
 
           # Construct the email message using the form data
-         const message = {
-         to: 'spyfilip@gmail.com',  // Replace with your email address
-        from: 'kontaktstranka@gmail.com',   // Replace with the sender email address
-         subject: 'Form Submission',
-         text: `A form submission was received:\n\n${formData}`
-    };
+          const message = {
+            to: 'spyfilip@gmail.com',  // Replace with your email address
+            from: 'kontaktstranka@gmail.com',   // Replace with the sender email address
+            subject: 'Form Submission',
+            text: `A form submission was received:\n\n${formData}`
+          };
 
-    # Send the email
-    sgMail.send(message)
-      .then(() => {
-        console.log('Email sent successfully');
-      })
-      .catch((error) => {
-        console.error('Error sending email:', error);
-      });
+          # Send the email
+          sgMail.send(message)
+            .then(() => {
+              console.log('Email sent successfully');
+            })
+            .catch((error) => {
+              console.error('Error sending email:', error);
+            });
 
 
 
