@@ -23,8 +23,11 @@ jobs:
         
       - name: Install PowerShell
         run: |
-          # No need to install PowerShell on Windows as it's already available
-          echo "PowerShell installed"
+         # Install PowerShell
+         sudo apt-get update
+         sudo apt-get install -y powershell
+         pwsh --version  # Verify the installation
+
 
       - name: Capture form data
         id: capture-form-data
