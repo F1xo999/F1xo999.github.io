@@ -1,0 +1,54 @@
+name: Form Submission
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  processFormSubmission:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Capture form data
+        id: form-data
+        run: |
+          # Add commands to capture the form data and store it in an output variable
+          # For example:
+          echo "::set-output name=data::Form data value"
+
+      - name: Process form submission
+        env:
+          SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+        run: |
+          # Install SendGrid client
+          npm install --save @sendgrid/mail
+
+          # Import the SendGrid library
+          const sgMail = require('@sendgrid/mail');
+          sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
+          # Get form data from the previous step
+          const formData = ${{ steps['form-data'].outputs.data }};
+
+          # Construct the email message
+          const message = {
+            to: 'spyfilip@gmail.com',  # Replace with your email address
+            from: 'kontaktstranka@gmail.com',   # Replace with the sender email address
+            subject: 'Form Submission',
+            text: `A form submission was received:\n\n${formData}`,
+          };
+
+          # Send the email
+          sgMail.send(message)
+            .then(() => {
+              console.log('Email sent successfully');
+            })
+            .catch((error) => {
+              console.error('Error sending email:', error);
+            });
+
+
