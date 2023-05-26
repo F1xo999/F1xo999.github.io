@@ -24,23 +24,23 @@
     <main>
         <h2>Kontaktujte nás</h2>
         <form id="contact-form" action="#" method="POST">
-        <div class="container">
-            <div class="columns">
-            <div class="column">
-                <input type="text" id="name" name="name" placeholder="Your Name">
-                </div>
-                <div class="column">
-                <input type="email" id="email" name="email" placeholder="Your Email">
-                </div>
-                <div class="column">
-                <textarea id="message" name="message" placeholder="Your Message"></textarea>
+            <div class="container">
+                <div class="columns">
+                    <div class="column">
+                        <input type="text" id="name" name="name" placeholder="Your Name">
+                    </div>
+                    <div class="column">
+                        <input type="email" id="email" name="email" placeholder="Your Email">
+                    </div>
+                    <div class="column">
+                        <textarea id="message" name="message" placeholder="Your Message"></textarea>
                     </div>
                 </div>
             </div>
             <button type="submit" id="submit-btn">Submit</button>
         </form>
-            <div id="notification"></div>          
-      </main>      
+        <div id="notification"></div>          
+    </main>      
     <footer>
         <p>&copy; 2023 Môj webový projekt. Všetky práva vyhradené.</p>
     </footer>
@@ -50,6 +50,17 @@
 
         contactForm.addEventListener('submit', function(e) {
             e.preventDefault(); // Prevent form submission
+
+            // Validate the form
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const message = document.getElementById('message').value.trim();
+
+            if (name === '' || email === '' || message === '') {
+                notification.textContent = 'Please fill in all the fields';
+                notification.style.display = 'block';
+                return; // Exit the function, preventing form submission
+            }
 
             // Code to handle form submission (saving data, sending requests, etc.)
 
@@ -65,5 +76,6 @@
     </script>  
 </body>
 </html>
+
 
 
