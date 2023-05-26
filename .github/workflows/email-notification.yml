@@ -24,8 +24,9 @@ jobs:
       - name: Capture form data
         id: capture-form-data
         run: |
-          # Replace with your logic to capture form data and set it as an environment variable
-          echo "FORM_DATA=$(your-command-to-capture-form-data)" >> $GITHUB_ENV
+         # Once you have the form data, set it as an environment variable
+          echo "FORM_DATA=$FORM_DATA" >> $GITHUB_ENV
+
 
       - name: Send email
         env:
