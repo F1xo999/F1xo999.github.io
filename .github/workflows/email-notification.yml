@@ -21,12 +21,10 @@ jobs:
       - name: Install dependencies
         run: npm install
         
-      - name: Install jq
+      - name: Install PowerShell
         run: |
-         # Download jq binary
-          wget https://github.com/stedolan/jq/releases/download/jq-1.6/jq-win64.exe -O jq.exe
-         # Move jq binary to a directory in the PATH
-           move jq.exe /usr/local/bin/
+         # No need to install PowerShell on Windows as it's already available
+          echo "PowerShell installed"
 
 
       - name: Capture form data
