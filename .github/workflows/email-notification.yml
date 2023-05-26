@@ -4,9 +4,6 @@ on:
   push:
     branches:
       - main
-env:
- DEBUG: true
-     
 
 jobs:
   sendEmail:
@@ -14,16 +11,16 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
 
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v2
         with:
-          node-version: '16'
+          node-version: '14'
 
       - name: Install dependencies
         run: npm install
-        
+
       - name: Install PowerShell
         run: |
           # Install PowerShell
@@ -31,10 +28,10 @@ jobs:
           sudo apt-get install -y powershell
           pwsh --version  # Verify the installation
 
-      - name: Capture form data 
+      - name: Capture form data
         id: capture-form-data
         run: |
-          echo "CAPTURE_FORM_DATA=$(echo '{\"name\": \"${{ env.INPUT_NAME }}\", \"email\": \"${{ env.INPUT_EMAIL }}\", \"message\": \"${{ env.INPUT_MESSAGE }}\"}')" >> $GITHUB_ENV
+          echo "::set-output name=data::$(echo '{\"name\": \"'${{ env.INPUT_NAME }}'\", \"email\": \"'${{ env.INPUT_EMAIL }}'\", \"message\": \"'${{ env.INPUT_MESSAGE }}'\"}')"
 
       - name: Send email
         env:
@@ -42,16 +39,12 @@ jobs:
           FROM_EMAIL: ${{ secrets.FROM_EMAIL }}
           SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
         run: |
-          # Import the required libraries
           const sgMail = require('@sendgrid/mail');
 
-          # Set up the SendGrid API key
           sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-          # Get form data from the previous step
           const formData = JSON.parse(process.env.CAPTURE_FORM_DATA);
 
-          # Construct the email message using the form data
           const message = {
             to: 'spyfilip@gmail.com',  // Replace with your email address
             from: 'kontaktstranka@gmail.com',   // Replace with the sender email address
@@ -59,7 +52,6 @@ jobs:
             text: `A form submission was received:\n\nName: ${formData.name}\nEmail: ${formData.email}\nMessage: ${formData.message}`
           };
 
-          # Send the email
           sgMail.send(message)
             .then(() => {
               console.log('Email sent successfully');
@@ -67,4 +59,5 @@ jobs:
             .catch((error) => {
               console.error('Error sending email:', error);
             });
+
 
