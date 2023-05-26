@@ -24,8 +24,14 @@ jobs:
       - name: Capture form data
         id: capture-form-data
         run: |
-         # Once you have the form data, set it as an environment variable
-          echo "FORM_DATA=$FORM_DATA" >> $GITHUB_ENV
+         # Extract form field values
+          name=$(jq -n --arg value "$(<index.html)" '$value | fromjson | .name')
+          email=$(jq -n --arg value "$(<index.html)" '$value | fromjson | .email')
+          message=$(jq -n --arg value "$(<index.html)" '$value | fromjson | .message')
+
+          # Set form data as environment variable
+           echo "FORM_DATA={\"name\":\"$name\",\"email\":\"$email\",\"message\":\"$message\"}" >> $GITHUB_ENV
+
 
 
       - name: Send email
