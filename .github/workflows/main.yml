@@ -1,4 +1,4 @@
-name: Form Submission
+name: Email Notification
 
 on:
   push:
@@ -6,38 +6,40 @@ on:
       - main
 
 jobs:
-  processFormSubmission:
+  sendEmail:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Capture form data
-        id: form-data
-        run: |
-          # Add commands to capture the form data and store it in an output variable
-          # For example:
-          echo "::set-output name=data::Form data value"
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
 
-      - name: Process form submission
+      - name: Install dependencies
+        run: npm install
+
+      - name: Send email
         env:
+          TO_EMAIL: ${{ secrets.TO_EMAIL }}
+          FROM_EMAIL: ${{ secrets.FROM_EMAIL }}
           SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
         run: |
-          # Install SendGrid client
-          npm install --save @sendgrid/mail
-
-          # Import the SendGrid library
+          # Import the required libraries
           const sgMail = require('@sendgrid/mail');
+
+          # Set up the SendGrid API key
           sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-          # Get form data from the previous step
-          const formData = ${{ steps['form-data'].outputs.data }};
+          # Get form data from the previous step (assuming it's stored in output "data" of step "form-data")
+          const formData = ${{ steps.form-data.outputs.data }};
 
           # Construct the email message
           const message = {
-            to: 'spyfilip@gmail.com',  # Replace with your email address
-            from: 'kontaktstranka@gmail.com',   # Replace with the sender email address
+            to: process.env.TO_EMAIL,
+            from: process.env.FROM_EMAIL,
             subject: 'Form Submission',
             text: `A form submission was received:\n\n${formData}`,
           };
@@ -50,5 +52,6 @@ jobs:
             .catch((error) => {
               console.error('Error sending email:', error);
             });
+
 
 
