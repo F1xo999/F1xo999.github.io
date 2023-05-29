@@ -42,8 +42,8 @@ jobs:
           const formData = JSON.parse(process.env.CAPTURE_FORM_DATA);
 
           const message = {
-            to: "spyfilip@gmail.com",
-            from: "kontaktstranka@gmail.com",
+            to: 'spyfilip@gmail.com',  // Replace with your email address
+            from: 'kontaktstranka@gmail.com',   // Replace with the sender email address
             subject: 'Form Submission',
             text: `A form submission was received:\n\nName: ${formData.name}\nEmail: ${formData.email}\nMessage: ${formData.message}`
           };
@@ -55,6 +55,5 @@ jobs:
             console.error('Error sending email:', error);
             process.exit(1);  // Exit with a non-zero code to indicate failure
           }
-
 
 
