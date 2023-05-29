@@ -55,15 +55,13 @@ jobs:
           text: `A form submission was received:\n\nName: ${formData.name}\nEmail: ${formData.email}\nMessage: ${formData.message}`
          };
 
-         sgMail
-         .send(message)
-          .then(() => {
-           console.log('Email sent successfully');
-         })
-          .catch((error) => {
-           console.error('Error sending email:', error.response.body);
-            process.exit(1);  // Exit with a non-zero code to indicate failure
-         });
+         try {
+         sgMail.send(message);
+         console.log('Email sent successfully');
+         } catch (error) {
+         console.error('Error sending email:', error);
+         process.exit(1);  // Exit with a non-zero code to indicate failure
+         }
 
 
 
