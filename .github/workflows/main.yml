@@ -56,4 +56,16 @@ jobs:
             process.exit(1);  // Exit with a non-zero code to indicate failure
           }
 
+      - name: Install PowerShell
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            # Place your PowerShell commands here
+            # Example:
+            # pwsh -Command "Write-Host 'Hello, PowerShell!'"
+
+
 
