@@ -21,13 +21,6 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Install PowerShell
-        run: |
-          # Install PowerShell
-          sudo apt-get update
-          sudo apt-get install -y powershell
-          pwsh --version  # Verify the installation
-          
       - name: Capture form data
         id: capture-form-data
         run: |
@@ -37,31 +30,32 @@ jobs:
 
       - name: Send email
         env:
-         TO_EMAIL: ${{ secrets.TO_EMAIL }}
-         FROM_EMAIL: ${{ secrets.FROM_EMAIL }}
-         SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+          TO_EMAIL: ${{ secrets.TO_EMAIL }}
+          FROM_EMAIL: ${{ secrets.FROM_EMAIL }}
+          SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
         run: |
-         npm install --save @sendgrid/mail
+          npm install --save @sendgrid/mail
 
-         const sgMail = require('@sendgrid/mail');
-         sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+          const sgMail = require('@sendgrid/mail');
+          sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-         const formData = JSON.parse(process.env.CAPTURE_FORM_DATA);
+          const formData = JSON.parse(process.env.CAPTURE_FORM_DATA);
 
-         const message = {
-          to: 'spyfilip@gmail.com',  // Replace with your email address
-          from: 'kontaktstranka@gmail.com',   // Replace with the sender email address
-          subject: 'Form Submission',
-          text: `A form submission was received:\n\nName: ${formData.name}\nEmail: ${formData.email}\nMessage: ${formData.message}`
-         };
+          const message = {
+            to: 'spyfilip@gmail.com',  // Replace with your email address
+            from: 'kontaktstranka@gmail.com',   // Replace with the sender email address
+            subject: 'Form Submission',
+            text: `A form submission was received:\n\nName: ${formData.name}\nEmail: ${formData.email}\nMessage: ${formData.message}`
+          };
 
-         try {
-         sgMail.send(message);
-         console.log('Email sent successfully');
-         } catch (error) {
-         console.error('Error sending email:', error);
-         process.exit(1);  // Exit with a non-zero code to indicate failure
-         }
+          try {
+            sgMail.send(message);
+            console.log('Email sent successfully');
+          } catch (error) {
+            console.error('Error sending email:', error);
+            process.exit(1);  // Exit with a non-zero code to indicate failure
+          }
+
 
 
 
