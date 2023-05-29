@@ -31,40 +31,19 @@ jobs:
       - name: Capture form data
         id: capture-form-data
         run: |
-           echo "name=${{ env.INPUT_NAME }}" >> $GITHUB_ENV
-           echo "email=${{ env.INPUT_EMAIL }}" >> $GITHUB_ENV
-           echo "message=${{ env.INPUT_MESSAGE }}" >> $GITHUB_ENV
+          echo "name=${{ env.INPUT_NAME }}" >> $GITHUB_ENV
+          echo "email=${{ env.INPUT_EMAIL }}" >> $GITHUB_ENV
+          echo "message=${{ env.INPUT_MESSAGE }}" >> $GITHUB_ENV
 
 
       - name: Send email
-
-        on:
-         push:
-          branches:
-           - main
-
         env:
-        TO_EMAIL: ${{ secrets.TO_EMAIL }}
-        FROM_EMAIL: ${{ secrets.FROM_EMAIL }}
-        SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
-  jobs:
-   sendEmail:
-    runs-on: ubuntu-latest
-
-     steps:
-       - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: 14
-
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Send email
+          TO_EMAIL: ${{ secrets.TO_EMAIL }}
+          FROM_EMAIL: ${{ secrets.FROM_EMAIL }}
+          SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
         run: |
+          npm install @sendgrid/mail
+
           const sgMail = require('@sendgrid/mail');
 
           sgMail.setApiKey(process.env.SENDGRID_API_KEY);
@@ -84,7 +63,6 @@ jobs:
             })
             .catch((error) => {
               console.error('Error sending email:', error);
+              process.exit(1);  // Exit with a non-zero code to indicate failure
             });
-
-
 
