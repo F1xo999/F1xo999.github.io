@@ -43,7 +43,7 @@ jobs:
 
           const message = {
             to: 'spyfilip@gmail.com',  // Replace with your email address
-            from: 'kontaktstranka@gmail.com',   // Replace with the sender email address
+            from: 'argentinos1050@gmail.com',   // Replace with the sender email address
             subject: 'Form Submission',
             text: `A form submission was received:\n\nName: ${formData.name}\nEmail: ${formData.email}\nMessage: ${formData.message}`
           };
