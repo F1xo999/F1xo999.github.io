@@ -35,34 +35,34 @@ jobs:
           echo "email=${{ env.INPUT_EMAIL }}" >> $GITHUB_ENV
           echo "message=${{ env.INPUT_MESSAGE }}" >> $GITHUB_ENV
 
-
       - name: Send email
-         env:
-    TO_EMAIL: ${{ secrets.TO_EMAIL }}
-    FROM_EMAIL: ${{ secrets.FROM_EMAIL }}
-    SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
-  run: |
-    npm install --save @sendgrid/mail
+        env:
+          TO_EMAIL: ${{ secrets.TO_EMAIL }}
+          FROM_EMAIL: ${{ secrets.FROM_EMAIL }}
+          SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+        run: |
+          npm install --save @sendgrid/mail
 
-    const sgMail = require('@sendgrid/mail');
-    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+          const sgMail = require('@sendgrid/mail');
+          sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-    const formData = JSON.parse(process.env.CAPTURE_FORM_DATA);
+          const formData = JSON.parse(process.env.CAPTURE_FORM_DATA);
 
-    const message = {
-      to: 'spyfilip@gmail.com',  // Replace with your email address
-      from: 'kontaktstranka@gmail.com',   // Replace with the sender email address
-      subject: 'Form Submission',
-      text: `A form submission was received:\n\nName: ${formData.name}\nEmail: ${formData.email}\nMessage: ${formData.message}`
-    };
+          const message = {
+            to: 'spyfilip@gmail.com',  // Replace with your email address
+            from: 'kontaktstranka@gmail.com',   // Replace with the sender email address
+            subject: 'Form Submission',
+            text: `A form submission was received:\n\nName: ${formData.name}\nEmail: ${formData.email}\nMessage: ${formData.message}`
+          };
 
-    sgMail
-      .send(message)
-      .then(() => {
-        console.log('Email sent successfully');
-      })
-      .catch((error) => {
-        console.error('Error sending email:', error);
-        process.exit(1);  // Exit with a non-zero code to indicate failure
-      });
+          sgMail
+            .send(message)
+            .then(() => {
+              console.log('Email sent successfully');
+            })
+            .catch((error) => {
+              console.error('Error sending email:', error);
+              process.exit(1);  // Exit with a non-zero code to indicate failure
+            });
+
 
