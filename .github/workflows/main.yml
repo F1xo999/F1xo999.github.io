@@ -45,7 +45,8 @@ jobs:
          echo "    process.exit(1);" >> sendEmail.js
          echo "  });" >> sendEmail.js
 
-         node sendEmail.js
+      - name: Run email script
+        run: node sendEmail.js
 
 
 
