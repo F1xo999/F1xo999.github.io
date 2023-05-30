@@ -53,7 +53,7 @@ jobs:
          echo "  }" >> sendEmail.js
          echo "});" >> sendEmail.js
 
-         node sendEmail.js
+         node .github/workflows/sendEmail.js
 
 
 
