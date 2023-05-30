@@ -19,42 +19,39 @@ jobs:
           node-version: '16'
 
       - name: Install dependencies
-        run: npm install @sendgrid/mail
+        run: npm install nodemailer
 
-      - name: Create and run email script
+      - name: Send email
         run: |
-          echo "const nodemailer = require('nodemailer');" > sendEmail.js
-          echo "" >> sendEmail.js
-          echo "const transporter = nodemailer.createTransport({" >> sendEmail.js
-          echo "  host: 'smtp.sendgrid.net'," >> sendEmail.js
-          echo "  port: 587, // or 465 for SSL connections" >> sendEmail.js
-          echo "  secure: false, // false for unencrypted/TLS connections, true for SSL connections" >> sendEmail.js
-          echo "  auth: {" >> sendEmail.js
-          echo "    user: 'apikey'," >> sendEmail.js
-          echo "    pass: process.env.SENDGRID_API_KEY" >> sendEmail.js
-          echo "  }" >> sendEmail.js
-          echo "});" >> sendEmail.js
-          echo "" >> sendEmail.js
-          echo "const mailOptions = {" >> sendEmail.js
-          echo "  from: 'test@example.com'," >> sendEmail.js
-          echo "  to: 'test@example.com'," >> sendEmail.js
-          echo "  subject: 'Sending with SendGrid is Fun'," >> sendEmail.js
-          echo "  text: 'and easy to do anywhere, even with Node.js'," >> sendEmail.js
-          echo "  html: '<strong>and easy to do anywhere, even with Node.js</strong>'" >> sendEmail.js
-          echo "};" >> sendEmail.js
-          echo "" >> sendEmail.js
-          echo "transporter.sendMail(mailOptions, (error, info) => {" >> sendEmail.js
-          echo "  if (error) {" >> sendEmail.js
-          echo "    console.error('Error sending email:', error);" >> sendEmail.js
-          echo "    process.exit(1);" >> sendEmail.js
-          echo "  } else {" >> sendEmail.js
-          echo "    console.log('Email sent:', info.messageId);" >> sendEmail.js
-          echo "    process.exit(0);" >> sendEmail.js
-          echo "  }" >> sendEmail.js
-          echo "});" >> sendEmail.js
+          const nodemailer = require('nodemailer');
 
-          node sendEmail.js
+          const transporter = nodemailer.createTransport({
+            host: 'smtp.sendgrid.net',
+            port: 587, // or 465 for SSL connections
+            secure: false, // false for unencrypted/TLS connections, true for SSL connections
+            auth: {
+              user: 'apikey',
+              pass: process.env.SENDGRID_API_KEY
+            }
+          });
 
+          const mailOptions = {
+            from: 'test@example.com',
+            to: 'test@example.com',
+            subject: 'Sending with SendGrid is Fun',
+            text: 'and easy to do anywhere, even with Node.js',
+            html: '<strong>and easy to do anywhere, even with Node.js</strong>'
+          };
+
+          transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+              console.error('Error sending email:', error);
+              process.exit(1);
+            } else {
+              console.log('Email sent:', info.messageId);
+              process.exit(0);
+            }
+          });
 
 
 
