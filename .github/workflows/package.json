@@ -1,1 +1,9 @@
+{
+  "name": "F1xo999.github.io",
+  "version": "1.0.0",
+  "description": "Your project description",
+  "dependencies": {
+    "nodemailer": "^x.x.x"
+  }
+}
 
