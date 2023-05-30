@@ -1,5 +1,7 @@
 const nodemailer = require('nodemailer');
 
+console.log('SENDGRID_API_KEY:', process.env.SENDGRID_API_KEY);
+
 const transporter = nodemailer.createTransport({
   host: 'smtp.sendgrid.net',
   port: 587,
