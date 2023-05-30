@@ -24,6 +24,9 @@ jobs:
       - name: Install nodemailer
         run: npm install nodemailer
 
+      - name: Print Environment Variables
+        run: echo $SENDGRID_API_KEY
+
       - name: Send email
         run: |
           echo "const nodemailer = require('nodemailer');" > sendEmail.js
@@ -58,6 +61,7 @@ jobs:
 
       - name: Run sendEmail.js
         run: node sendEmail.js
+
 
 
 
