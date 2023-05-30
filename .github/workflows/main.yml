@@ -46,7 +46,7 @@ jobs:
          echo "  });" >> sendEmail.js
 
       - name: Run email script
-        run: node F1xo999.github.io/.github/workflows/sendEmail.js
+        run: node .github/workflows/sendEmail.js
 
 
 
