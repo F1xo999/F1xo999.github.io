@@ -28,6 +28,9 @@ jobs:
           echo "email=${{ env.INPUT_EMAIL }}" >> $GITHUB_ENV
           echo "message=${{ env.INPUT_MESSAGE }}" >> $GITHUB_ENV
 
+      - name: Set SendGrid API key
+        run: echo "export SENDGRID_API_KEY='${{ secrets.SENDGRID_API_KEY }}'" >> $GITHUB_ENV
+
       - name: Create and run email script
         run: |
           echo "const sgMail = require('@sendgrid/mail');
