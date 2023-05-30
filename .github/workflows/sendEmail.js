@@ -12,8 +12,8 @@ const transporter = nodemailer.createTransport({
 });
 
 const mailOptions = {
-  from: 'test@example.com',
-  to: 'test@example.com',
+  from: 'argentinos1050@gmail.com',
+  to: 'spyfilip@gmail.com',
   subject: 'Sending with SendGrid is Fun',
   text: 'and easy to do anywhere, even with Node.js',
   html: '<strong>and easy to do anywhere, even with Node.js</strong>',
