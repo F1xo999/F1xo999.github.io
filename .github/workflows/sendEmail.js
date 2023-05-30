@@ -6,7 +6,7 @@ const transporter = nodemailer.createTransport({
   secure: false, // false for unencrypted/TLS connections, true for SSL connections
   auth: {
     user: 'apikey',
-    pass: process.env.SENDGRID_API_KEY,
+    pass: (process.env.SENDGRID_API_KEY),
   },
 });
 
