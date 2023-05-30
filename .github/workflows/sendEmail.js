@@ -2,20 +2,20 @@ const nodemailer = require('nodemailer');
 
 const transporter = nodemailer.createTransport({
   host: 'smtp.sendgrid.net',
-  port: 587, // Change the port as needed (25, 587, or 465)
+  port: 587,
   secure: false, // false for unencrypted/TLS connections, true for SSL connections
   auth: {
     user: 'apikey',
-    pass: process.env.SENDGRID_API_KEY
-  }
+    pass: process.env.SENDGRID_API_KEY,
+  },
 });
 
 const mailOptions = {
-  from: 'argentinos1050@gmail.com',
-  to: 'spyfilip@gmail.com',
+  from: 'test@example.com',
+  to: 'test@example.com',
   subject: 'Sending with SendGrid is Fun',
   text: 'and easy to do anywhere, even with Node.js',
-  html: '<strong>and easy to do anywhere, even with Node.js</strong>'
+  html: '<strong>and easy to do anywhere, even with Node.js</strong>',
 };
 
 transporter.sendMail(mailOptions, (error, info) => {
@@ -27,3 +27,4 @@ transporter.sendMail(mailOptions, (error, info) => {
     process.exit(0);
   }
 });
+
