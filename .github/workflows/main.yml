@@ -31,18 +31,18 @@ jobs:
       - name: Create and run email script
         run: |
           echo "const sgMail = require('@sendgrid/mail');
-          sgMail.setApiKey(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);
+          sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-          const formData = JSON.parse(process.env.CAPTURE_FORM_DATA);
+          const formData = JSON.parse(process.env.CAPTURE_FORM_DATA || '{}');
 
           const message = {
             to: 'spyfilip@gmail.com',  // Replace with your email address
             from: 'argentinos1050@gmail.com',   // Replace with the sender email address
             subject: 'Form Submission',
             text: \`A form submission was received:
-            \n\nName: \${formData.name}
-            \nEmail: \${formData.email}
-            \nMessage: \${formData.message}\`
+            \n\nName: \${formData.name || ''}
+            \nEmail: \${formData.email || ''}
+            \nMessage: \${formData.message || ''}\`
           };
 
           try {
@@ -53,6 +53,7 @@ jobs:
             process.exit(1);  // Exit with a non-zero code to indicate failure
           }" > sendEmail.js
           node sendEmail.js
+
 
 
 
