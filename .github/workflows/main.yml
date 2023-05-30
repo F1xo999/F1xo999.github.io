@@ -31,7 +31,7 @@ jobs:
       - name: Create and run email script
         run: |
           echo "const sgMail = require('@sendgrid/mail');
-          sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+          sgMail.setApiKey(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);
 
           const formData = JSON.parse(process.env.CAPTURE_FORM_DATA);
 
