@@ -24,36 +24,37 @@ jobs:
       - name: Send email
         run: |
          const nodemailer = require('nodemailer');
-  
+
          const transporter = nodemailer.createTransport({
-         host: 'smtp.sendgrid.net',
-         port: 587,
-         secure: false,
-         auth: {
-          user: 'apikey',
+          host: 'smtp.sendgrid.net',
+          port: 587,
+          secure: false,
+          auth: {
+           user: 'apikey',
            pass: process.env.SENDGRID_API_KEY
          }
          });
-  
-         const mailOptions = {
-         from: 'sender@example.com',
-         to: 'recipient@example.com',
-         subject: 'Sending with SendGrid is Fun',
-         text: 'and easy to do anywhere, even with Node.js',
-         html: '<strong>and easy to do anywhere, even with Node.js</strong>'
+
+          const mailOptions = {
+          from: 'sender@example.com',
+          to: 'recipient@example.com',
+          subject: 'Sending with SendGrid is Fun',
+          text: 'and easy to do anywhere, even with Node.js',
+          html: '<strong>and easy to do anywhere, even with Node.js</strong>'
          };
-  
+
          transporter.sendMail(mailOptions, (error, info) => {
          if (error) {
          console.error('Error sending email:', error);
          process.exit(1);
          } else {
-         console.log('Email sent:', info.messageId);
-         process.exit(0);
+          console.log('Email sent:', info.messageId);
+           process.exit(0);
          }
          });
          env:
          SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+
 
 
 
