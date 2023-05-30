@@ -31,6 +31,9 @@ jobs:
       - name: Set SendGrid API key
         run: echo "export SENDGRID_API_KEY='${{ secrets.SENDGRID_API_KEY }}'" >> $GITHUB_ENV
 
+      - name: Install @sendgrid/mail package
+        run: npm install --save @sendgrid/mail
+
       - name: Create and run email script
         run: |
           echo "const sgMail = require('@sendgrid/mail');
@@ -56,6 +59,7 @@ jobs:
             process.exit(1);  // Exit with a non-zero code to indicate failure
           }" > sendEmail.js
           node sendEmail.js
+
 
 
 
